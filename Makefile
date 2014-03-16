@@ -17,18 +17,18 @@ release: $(dir $(ROBJS)) $(dir $(RJAR)) $(RJAR)
 $(RJAR): $(ROBJS)
 	$(JAR) $@ -C libs . -C bin/release/classes .
 bin/release/classes/%.class: src/%.java
-	javac $(RFLAGS) -cp 'libs/*' -d bin/release/classes $<
+	javac $(RFLAGS) -cp 'src:libs/*' -d bin/release/classes $<
 
 debug: $(dir $(DOBJS)) $(dir $(DJAR)) $(DJAR)
 $(DJAR): $(DOBJS)
 	$(JAR) $@ -C libs . -C bin/debug/classes .
 bin/debug/classes/%.class: src/%.java
-	javac $(DFLAGS) -cp 'libs/*' -d bin/debug/classes $<
+	javac $(DFLAGS) -cp 'src:libs/*' -d bin/debug/classes $<
 
 test: debug $(dir $(TOBJS)) $(TOBJS)
 bin/test/classes/%.class: test/%.java
 	javac $(DFLAGS) -cp 'bin/debug/classes:libs/*' -d bin/test/classes $<
-	java -cp 'bin/test/classes:bin/debug:libs/*' $(notdir $(basename $@))
+	java -cp 'bin/test/classes:bin/debug/classes:libs/*' $(notdir $(basename $@))
 
 $(sort $(dir $(ROBJS) $(DOBJS) $(TOBJS) $(DJAR) $(RJAR))):
 	mkdir -p $@
