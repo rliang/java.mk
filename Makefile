@@ -27,7 +27,7 @@ bin/debug/classes/%.class: src/%.java
 
 test: debug $(dir $(TOBJS)) $(TOBJS)
 bin/test/classes/%.class: test/%.java
-	javac $(DFLAGS) -cp 'bin/debug/classes:libs/*' -d bin/test/classes $<
+	javac $(DFLAGS) -cp 'src:libs/*' -d bin/test/classes $<
 	java -cp 'bin/test/classes:bin/debug/classes:libs/*' $(notdir $(basename $@))
 
 $(sort $(dir $(ROBJS) $(DOBJS) $(TOBJS) $(DJAR) $(RJAR))):
