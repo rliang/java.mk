@@ -25,8 +25,8 @@ $(DJAR): $(DOBJS)
 bin/debug/classes/%.class: src/%.java
 	javac $(DFLAGS) -cp 'src:libs/*' -d bin/debug/classes $<
 
-test: debug $(dir $(TOBJS)) $(TOBJS)
-bin/test/classes/%.class: test/%.java
+test: $(dir $(TOBJS)) $(TOBJS)
+bin/test/classes/%.class: test/%.java $(DOBJS)
 	javac $(DFLAGS) -cp 'src:libs/*' -d bin/test/classes $<
 	java -cp 'bin/test/classes:bin/debug/classes:libs/*' $(notdir $(basename $@))
 
